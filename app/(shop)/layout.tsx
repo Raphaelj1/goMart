@@ -1,3 +1,6 @@
+import Banner from '@/components/home/Banner';
+import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar';
 import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 
@@ -10,10 +13,10 @@ export const metadata: Metadata = {
 const ShopLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<>
-			<div>Banner</div>
-			<div>Navbar</div>
+			<Banner />
+			<Navbar />
 			{children}
-			<div>Footer</div>
+			<Footer />
 		</>
 	);
 };
