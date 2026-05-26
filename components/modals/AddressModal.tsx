@@ -1,14 +1,15 @@
 'use client';
+
 import { XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface AddressModalProps {
-	setShowAddressModal: (value: boolean) => void;
+	setShowAddressModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddressModal = ({ setShowAddressModal }: AddressModalProps) => {
-	const [address, setAddress] = useState({
+	const [address, setAddress] = useState<Omit<Address, 'id' | 'userId' | 'createdAt'>>({
 		name: '',
 		email: '',
 		street: '',
@@ -19,22 +20,32 @@ const AddressModal = ({ setShowAddressModal }: AddressModalProps) => {
 		phone: '',
 	});
 
-	const handleAddressChange = (e) => {
+	const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setAddress({
 			...address,
 			[e.target.name]: e.target.value,
 		});
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
+
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		console.log('Saved Address Payload Data:', address);
 
 		setShowAddressModal(false);
 	};
 
 	return (
 		<form
-			onSubmit={(e) => toast.promise(handleSubmit(e), { loading: 'Adding Address...' })}
+			onSubmit={(e) => {
+				toast.promise(handleSubmit(e), {
+					loading: 'Adding Address...',
+					success: 'Address added successfully!',
+					error: 'Failed to save address.',
+				});
+			}}
 			className="fixed inset-0 z-50 bg-white/60 backdrop-blur h-screen flex items-center justify-center"
 		>
 			<div className="flex flex-col gap-5 text-slate-700 w-full max-w-sm mx-6">
@@ -94,7 +105,7 @@ const AddressModal = ({ setShowAddressModal }: AddressModalProps) => {
 						onChange={handleAddressChange}
 						value={address.zip}
 						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
-						type="number"
+						type="text"
 						placeholder="Zip code"
 						required
 					/>
@@ -117,7 +128,7 @@ const AddressModal = ({ setShowAddressModal }: AddressModalProps) => {
 					placeholder="Phone"
 					required
 				/>
-				<button className="bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-900 active:scale-95 transition-all">
+				<button className="w-full bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-900 active:scale-95 transition-all">
 					SAVE ADDRESS
 				</button>
 			</div>
