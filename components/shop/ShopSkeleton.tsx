@@ -1,5 +1,4 @@
-// components/shop/ShopSkeleton.tsx
-export default function ShopSkeleton() {
+const ShopSkeleton = () => {
 	return (
 		<div className="w-full">
 			<div className="my-6 flex items-center gap-2 select-none animate-pulse">
@@ -35,4 +34,6 @@ export default function ShopSkeleton() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default ShopSkeleton;
