@@ -9,7 +9,7 @@ import { useAppSelector } from '@/store/hooks';
 
 interface OrderSummaryProps {
 	totalPrice: number;
-	items: Record<string, number>; // cart items
+	items: CartArrayItem[];
 }
 
 const OrderSummary = ({ totalPrice, items }: OrderSummaryProps) => {
@@ -132,7 +132,6 @@ const OrderSummary = ({ totalPrice, items }: OrderSummaryProps) => {
 				{!coupon ? (
 					<form
 						onSubmit={(e) => {
-							// Sonner promise handler invocation
 							toast.promise(handleCouponCode(e), {
 								loading: 'Checking Coupon...',
 								success: 'Coupon applied!',

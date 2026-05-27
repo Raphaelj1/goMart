@@ -51,7 +51,6 @@ const OrderItem = ({ order }: OrderItemProps) => {
 									</p>
 									<div>
 										{(() => {
-											// 4. Cached lookup optimization preventing scanning the array twice
 											const foundRating = ratings.find(
 												(rating) =>
 													order.id === rating.orderId &&
