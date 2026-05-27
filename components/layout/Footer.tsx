@@ -158,7 +158,7 @@ const Footer = () => {
 				{ text: 'Home', path: '/', icon: null },
 				{ text: 'Privacy Policy', path: '/', icon: null },
 				{ text: 'Premium Membership', path: '/pricing', icon: null },
-				{ text: 'Become A Seller', path: '/create-store', icon: null },
+				{ text: 'Become A Seller', path: '/become-seller', icon: null },
 			],
 		},
 		{
