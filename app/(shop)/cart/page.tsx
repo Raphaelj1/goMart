@@ -16,7 +16,7 @@ const Cart = () => {
 	const dispatch = useAppDispatch();
 
 	let totalPrice = 0;
-	const cartArray: CartArrayItem[] = [];
+	const cartArray: CartItem[] = [];
 
 	if (products.length > 0) {
 		for (const [key, value] of Object.entries(cartItems)) {

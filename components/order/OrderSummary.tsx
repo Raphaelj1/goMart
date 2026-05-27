@@ -9,7 +9,7 @@ import { useAppSelector } from '@/store/hooks';
 
 interface OrderSummaryProps {
 	totalPrice: number;
-	items: CartArrayItem[];
+	items: CartItem[];
 }
 
 const OrderSummary = ({ totalPrice, items }: OrderSummaryProps) => {

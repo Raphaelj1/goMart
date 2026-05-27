@@ -5,8 +5,8 @@ interface User {
 	id: string;
 	name: string;
 	email: string;
-	image: string;
-	cart: Record<string, number>;
+	image: StaticImageData | string;
+	cart?: Record<string, number>;
 
 	// Relations (Optional)
 	ratings?: Rating[];
@@ -21,7 +21,7 @@ interface Product {
 	description: string;
 	mrp: number;
 	price: number;
-	images: string[];
+	images: StaticImageData[] | string[];
 	category: string;
 	inStock: boolean;
 	storeId: string;
@@ -119,7 +119,7 @@ interface Store {
 	address: string;
 	status: string;
 	isActive: boolean;
-	logo: string;
+	logo: StaticImageData | string;
 	email: string;
 	contact: string;
 	createdAt: string | Date;
@@ -129,4 +129,8 @@ interface Store {
 	Product?: Product[];
 	Order?: Order[];
 	user?: User;
+}
+
+interface CartItem extends Product {
+	quantity: number;
 }
