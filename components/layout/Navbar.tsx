@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, ShoppingCart } from 'lucide-react';
+import { Search, ShoppingCart, X } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
 
 const Navbar = () => {
@@ -16,6 +16,11 @@ const Navbar = () => {
 	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		router.push(`/shop?search=${encodeURIComponent(search)}`);
+	};
+
+	const handleClearSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		setSearch('');
 	};
 
 	return (
@@ -50,6 +55,12 @@ const Navbar = () => {
 								onChange={(e) => setSearch(e.target.value)}
 								required
 							/>
+
+							{search && (
+								<button type="reset" onClick={handleClearSearch}>
+									<X size={16} className="text-slate-600" />
+								</button>
+							)}
 						</form>
 
 						<Link
