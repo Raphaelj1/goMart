@@ -92,7 +92,7 @@ const ProductDescription = ({ product }: ProductDescriptionProps) => {
 							Product by {product.store.name}
 						</p>
 						<Link
-							href={`/shop/${product.store.username}`}
+							href={`/stores/${product.store.username}`}
 							className="flex items-center gap-1.5 text-green-500 hover:text-green-600 transition"
 						>
 							view store <ArrowRight size={14} />
