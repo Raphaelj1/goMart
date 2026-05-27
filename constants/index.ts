@@ -46,7 +46,7 @@ export const categories = ['Headphones', 'Speakers', 'Watch', 'Earbuds', 'Mouse'
 export const dummyRatingsData = [
 	{
 		id: 'rat_1',
-		rating: 4.2,
+		rating: 3.2,
 		review: "I was a bit skeptical at first, but this product turned out to be even better than I imagined. The quality feels premium, it's easy to use, and it delivers exactly what was promised. I've already recommended it to friends and will definitely purchase again in the future.",
 		user: { name: 'Kristin Watson', image: profile_pic1 },
 		productId: 'prod_1',
@@ -56,7 +56,7 @@ export const dummyRatingsData = [
 	},
 	{
 		id: 'rat_2',
-		rating: 5.0,
+		rating: 2.0,
 		review: 'This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.',
 		user: { name: 'Jenny Wilson', image: profile_pic2 },
 		productId: 'prod_2',
@@ -66,7 +66,7 @@ export const dummyRatingsData = [
 	},
 	{
 		id: 'rat_3',
-		rating: 4.1,
+		rating: 2.1,
 		review: 'This product is amazing. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.',
 		user: { name: 'Bessie Cooper', image: profile_pic3 },
 		productId: 'prod_3',
@@ -76,7 +76,7 @@ export const dummyRatingsData = [
 	},
 	{
 		id: 'rat_4',
-		rating: 5.0,
+		rating: 4.0,
 		review: 'This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.',
 		user: { name: 'Kristin Watson', image: profile_pic1 },
 		productId: 'prod_4',
@@ -86,7 +86,7 @@ export const dummyRatingsData = [
 	},
 	{
 		id: 'rat_5',
-		rating: 4.3,
+		rating: 3.3,
 		review: "Overall, I'm very happy with this purchase. It works as described and feels durable. The only reason I didn't give it five stars is because of a small issue (such as setup taking a bit longer than expected, or packaging being slightly damaged). Still, highly recommend it for anyone looking for a reliable option.",
 		user: { name: 'Jenny Wilson', image: profile_pic2 },
 		productId: 'prod_5',

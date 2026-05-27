@@ -23,7 +23,7 @@ const Hero = () => {
 						</div>
 
 						<h2 className="text-3xl sm:text-5xl leading-[1.2] my-3 font-medium bg-gradient-to-r from-slate-600 to-[#A0FF74] bg-clip-text text-transparent max-w-xs  sm:max-w-md">
-							Gadgets you'll love. Prices you'll trust.
+							Gadgets you&apos;ll love. Prices you&apos;ll trust.
 						</h2>
 
 						<div className="text-slate-800 text-sm font-medium mt-4 sm:mt-8">
