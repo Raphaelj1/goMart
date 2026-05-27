@@ -11,7 +11,7 @@ const Navbar = () => {
 
 	const [search, setSearch] = useState<string>('');
 
-	const cartCount = useAppSelector((state) => state.cart.total);
+	const cartCount = Object.keys(useAppSelector((state) => state.cart.cartItems)).length;
 
 	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
