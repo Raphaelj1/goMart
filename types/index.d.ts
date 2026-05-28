@@ -141,3 +141,11 @@ interface DashboardData {
 	totalEarnings: number;
 	totalProducts: number;
 }
+
+interface AdminDashboardData {
+	products: number;
+	revenue: number;
+	orders: number;
+	stores: number;
+	allOrders: Order[];
+}

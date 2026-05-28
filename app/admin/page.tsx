@@ -63,7 +63,7 @@ export default function AdminDashboard() {
 				{dashboardCardsData.map((card) => (
 					<div
 						key={card.title}
-						className="flex items-center gap-10 border border-slate-200 p-3 px-6 rounded-lg min-w-[240px]"
+						className="flex items-center gap-10 border border-slate-200 p-3 px-6 rounded-lg min-w-60"
 					>
 						<div className="flex flex-col gap-3 text-xs">
 							<p>{card.title}</p>
