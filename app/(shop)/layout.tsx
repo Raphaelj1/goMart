@@ -13,8 +13,10 @@ export const metadata: Metadata = {
 const ShopLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<>
-			<Banner />
-			<Navbar />
+			<div className="sticky top-0 z-10">
+				<Banner />
+				<Navbar />
+			</div>
 			{children}
 			<Footer />
 		</>

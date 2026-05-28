@@ -6,7 +6,7 @@ import OurSpecs from '@/components/home/OurSpecs';
 
 const Home = () => {
 	return (
-		<div>
+		<div className="min-h-full overflow-y-auto scrollbar-thin scrollbar-thumb-green-500">
 			<Hero />
 			<LatestProducts />
 			<BestSelling />
