@@ -134,3 +134,10 @@ interface Store {
 interface CartItem extends Product {
 	quantity: number;
 }
+
+interface DashboardData {
+	ratings: Rating[];
+	totalOrders: number;
+	totalEarnings: number;
+	totalProducts: number;
+}
