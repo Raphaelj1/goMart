@@ -31,7 +31,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 		: 0;
 
 	return (
-		<Link href={`/products/${product.id}`} className="group max-xl:mx-auto">
+		<Link href={`/products/${product.id}`} className="w-full group sm:w-auto max-xl:mx-auto">
 			<div className="bg-[#F5F5F5] h-40 sm:w-60 sm:h-68 rounded-lg flex items-center justify-center">
 				{product.images && product.images.length > 0 && (
 					<Image
@@ -65,7 +65,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 									/>
 								))}
 						</div>
-						<p className="text-xs">{averageRating.toFixed(2)}</p>
+						{/* <p className="text-xs">{averageRating.toFixed(2)}</p> */}
 					</div>
 				</div>
 

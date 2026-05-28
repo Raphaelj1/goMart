@@ -434,7 +434,7 @@ export const orderDummyData = [
 		createdAt: '2025-08-22T09:15:03.929Z',
 		updatedAt: '2025-08-22T09:15:50.723Z',
 		isCouponUsed: true,
-		coupon: dummyRatingsData[2],
+		coupon: couponDummyData[2],
 		orderItems: [
 			{
 				orderId: 'cmemm75h5001jtat89016h1p3',
