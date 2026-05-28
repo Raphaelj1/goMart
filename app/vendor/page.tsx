@@ -9,7 +9,7 @@ import {
 	TagsIcon,
 	LucideIcon,
 } from 'lucide-react';
-import ViewProductButton from '@/components/vendor/ViewProductButton';
+import Link from 'next/link';
 
 interface DashboardCard {
 	title: string;
@@ -118,7 +118,12 @@ async function DashboardContent() {
 								</div>
 							</div>
 							{review.product?.id && (
-								<ViewProductButton productId={review.product.id} />
+								<Link
+									href={`/products/${review.product.id}`}
+									className="bg-slate-100 px-5 py-2 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded transition-all active:scale-95"
+								>
+									View Product
+								</Link>
 							)}
 						</div>
 					</div>
