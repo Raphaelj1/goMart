@@ -48,7 +48,7 @@ export default function StoreManageProducts() {
 							<th className="px-4 py-3 hidden md:table-cell">Description</th>
 							<th className="px-4 py-3 hidden md:table-cell">MRP</th>
 							<th className="px-4 py-3">Price</th>
-							<th className="px-4 py-3 text-center">Actions</th>
+							<th className="px-4 py-3 text-center">Status</th>
 						</tr>
 					</thead>
 					<tbody className="text-slate-700 divide-y divide-gray-200 bg-white">
@@ -68,9 +68,7 @@ export default function StoreManageProducts() {
 												alt={product.name || 'Product image'}
 											/>
 										)}
-										<span className="truncate max-w-[180px]">
-											{product.name}
-										</span>
+										<span className="truncate max-w-45">{product.name}</span>
 									</div>
 								</td>
 								<td className="px-4 py-3 max-w-md text-slate-500 hidden md:table-cell truncate">
