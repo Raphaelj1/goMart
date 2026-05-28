@@ -49,9 +49,6 @@ const BecomeSeller = () => {
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
-		// Simulate data submission delay
-		await new Promise((resolve) => setTimeout(resolve, 1500));
-
 		console.log('Submitting Store Payload:', storeInfo);
 	};
 

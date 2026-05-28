@@ -13,11 +13,8 @@ interface StoreContentProps {
 	username: string;
 }
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 async function StoreContent({ username }: StoreContentProps) {
 	// fetch from server
-	await delay(500); // Simulate network database latency
 
 	const storeInfo = dummyStoreData as unknown as Store;
 	const products = productDummyData as unknown as Product[];

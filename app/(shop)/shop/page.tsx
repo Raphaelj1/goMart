@@ -10,12 +10,8 @@ interface ShopContentProps {
 	currentSearch: string;
 }
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 async function ShopContent({ currentSearch }: ShopContentProps) {
 	// fetch products
-
-	await delay(100); // simulate server delay
 
 	return <ShopGrid initialSearch={currentSearch} />;
 }
