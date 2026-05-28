@@ -30,7 +30,7 @@ export default function OrdersAreaChart({ allOrders }: OrdersAreaChartProps) {
 	}));
 
 	return (
-		<div className="w-full max-w-4xl h-[300px] text-xs">
+		<div className="w-full max-w-5xl h-75 text-xs">
 			<h3 className="text-lg font-medium text-slate-800 mb-4 pt-2 text-right">
 				<span className="text-slate-500">Orders /</span> Day
 			</h3>
