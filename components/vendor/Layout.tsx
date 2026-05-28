@@ -27,7 +27,7 @@ async function VendorLayoutContent({ children }: StoreLayoutProps) {
 			<VendorNavbar />
 			<div className="flex flex-1 items-start h-full overflow-y-scroll scrollbar-none">
 				<VendorSidebar storeInfo={storeInfo} />
-				<div className="flex-1 h-full p-5 lg:pl-12 lg:pt-12 overflow-y-auto scrollbar-thin scrollbar-thumb-green-500">
+				<div className="flex-1 h-full p-5 lg:pl-12 lg:pt-12 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400">
 					{children}
 				</div>
 			</div>
