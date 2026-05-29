@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const ShopLayout = ({ children }: { children: ReactNode }) => {
 	return (
-		<div className="h-screen flex flex-col overflow-auto">
+		<div className="h-dvh flex flex-col overflow-auto">
 			<div className="sticky top-0 z-10">
 				<Banner />
 				<Navbar />
