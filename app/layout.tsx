@@ -3,6 +3,7 @@ import { Outfit } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
 import StoreProvider from '@/store/provider';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const outfit = Outfit({
 	subsets: ['latin'],
@@ -21,13 +22,15 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`${outfit.className} h-full antialiased`}>
-			<body className="min-h-full flex flex-col">
-				<StoreProvider>
-					{children}
-					<Toaster />
-				</StoreProvider>
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en" className={`${outfit.className} h-full antialiased`}>
+				<body className="min-h-full flex flex-col">
+					<StoreProvider>
+						{children}
+						<Toaster />
+					</StoreProvider>
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
