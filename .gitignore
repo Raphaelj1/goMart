@@ -20,6 +20,9 @@
 # production
 /build
 
+# prisma generated files
+/generated
+
 # misc
 .DS_Store
 *.pem
