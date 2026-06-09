@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import StoreInfo from '@/components/admin/StoreInfo';
 import Loading from '@/components/Loading';
 import { toast } from 'sonner';
-import { storesDummyData } from '@/constants';
+import { getApprovedStores, toggleStoreActive } from '@/lib/actions/admin';
 
 export default function AdminStores() {
 	const [loading, setLoading] = useState<boolean>(true);
@@ -12,24 +12,31 @@ export default function AdminStores() {
 
 	const toggleIsActive = async (storeId: string): Promise<void> => {
 		try {
-			console.log('Toggling active state for store ID:', storeId);
 			setStores((prevStores) =>
 				prevStores.map((s) => (s.id === storeId ? { ...s, isActive: !s.isActive } : s)),
 			); // instant UI feedback
 
-			// Simulate network latency delay
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			const { success, message } = await toggleStoreActive(storeId);
+
+			if (!success) throw new Error(message);
 		} catch (error) {
-			console.error('Error toggling store active status:', error);
 			setStores((prevStores) =>
 				prevStores.map((s) => (s.id === storeId ? { ...s, isActive: !s.isActive } : s)),
 			);
+			throw error; // sonner handles this
 		}
 	};
 
 	useEffect(() => {
 		const fetchStores = async (): Promise<void> => {
-			setStores(storesDummyData as unknown as Store[]);
+			const { success, stores } = await getApprovedStores();
+
+			if (!success && !stores) {
+				setLoading(false);
+				return;
+			}
+
+			setStores(stores as unknown[] as Store[]);
 			setLoading(false);
 		};
 

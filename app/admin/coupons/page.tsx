@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'sonner';
 import { Trash2Icon } from 'lucide-react';
-import { couponDummyData } from '@/constants';
+import { createCoupon, deleteCoupon, getAllCoupons } from '@/lib/actions/admin';
 
 interface CouponFormState {
 	code: string;
@@ -16,25 +16,34 @@ interface CouponFormState {
 	expiresAt: Date;
 }
 
+const initialCouponState: CouponFormState = {
+	code: '',
+	description: '',
+	discount: '',
+	forNewUser: false,
+	forMember: false,
+	isPublic: false,
+	expiresAt: new Date(),
+};
+
 export default function AdminCoupons() {
 	const [coupons, setCoupons] = useState<Coupon[]>([]);
-
-	const [newCoupon, setNewCoupon] = useState<CouponFormState>({
-		code: '',
-		description: '',
-		discount: '',
-		forNewUser: false,
-		forMember: false,
-		isPublic: false,
-		expiresAt: new Date(),
-	});
+	const [newCoupon, setNewCoupon] = useState(initialCouponState);
 
 	const handleAddCoupon = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
-		// Logic to add a coupon
 
-		console.log('Adding new coupon payload:', newCoupon);
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		const formData = new FormData();
+		Object.entries(newCoupon).forEach(([Key, value]) => {
+			formData.append(Key, value);
+		});
+
+		const { success, message } = await createCoupon(formData);
+
+		if (!success) throw new Error(message);
+
+		setCoupons((prev) => [newCoupon as Coupon, ...prev]);
+		setNewCoupon(initialCouponState);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,17 +59,25 @@ export default function AdminCoupons() {
 		}
 	};
 
-	const deleteCoupon = async (code: string): Promise<void> => {
-		// Logic to delete a coupon
+	const handleDeleteCoupon = async (code: string): Promise<void> => {
+		try {
+			const { success, message } = await deleteCoupon(code);
 
-		console.log('Deleting coupon with code:', code);
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		setCoupons((prev) => prev.filter((c) => c.code !== code));
+			if (!success) throw new Error(message);
+
+			setCoupons((prev) => prev.filter((c) => c.code !== code));
+		} catch (error) {
+			throw error;
+		}
 	};
 
 	useEffect(() => {
 		const fetchCoupons = async (): Promise<void> => {
-			setCoupons(couponDummyData as unknown as Coupon[]);
+			const { success, coupons } = await getAllCoupons();
+
+			if (!success) return;
+
+			setCoupons(coupons as unknown as Coupon[]);
 		};
 
 		fetchCoupons();
@@ -222,7 +239,7 @@ export default function AdminCoupons() {
 									<td className="py-3 px-4">
 										<button
 											onClick={() => {
-												toast.promise(deleteCoupon(coupon.code), {
+												toast.promise(handleDeleteCoupon(coupon.code), {
 													loading: 'Deleting coupon...',
 													success: 'Coupon deleted!',
 													error: 'Failed to delete coupon.',

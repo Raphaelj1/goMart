@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { storesDummyData } from '@/constants';
 import StoreInfo from '@/components/admin/StoreInfo';
 import Loading from '@/components/Loading';
 import { toast } from 'sonner';
+import { approveStore, getPendingStores } from '@/lib/actions/admin';
 
 interface ApproveActionParams {
 	storeId: string;
@@ -17,17 +17,27 @@ export default function AdminApprovals() {
 	const [stores, setStores] = useState<Store[]>([]);
 
 	const handleApprove = async ({ storeId, status }: ApproveActionParams): Promise<void> => {
-		// Logic to approve or reject a store
-		console.log(`Setting store ID ${storeId} approval status to: ${status}`);
+		try {
+			setStores((prevStores) => prevStores.filter((store) => store.id !== storeId));
+			const { success, message } = await approveStore(storeId, status);
 
-		await new Promise((resolve) => setTimeout(resolve, 1200));
-
-		setStores((prevStores) => prevStores.filter((store) => store.id !== storeId));
+			if (!success) throw new Error(message);
+		} catch (error) {
+			setStores((prevStores) => prevStores.filter((store) => store.id !== storeId));
+			throw error;
+		}
 	};
 
 	useEffect(() => {
 		const fetchStores = async (): Promise<void> => {
-			setStores(storesDummyData as unknown as Store[]);
+			const { success, stores } = await getPendingStores();
+
+			if (!success && !stores) {
+				setLoading(false);
+				return;
+			}
+
+			setStores(stores as unknown[] as Store[]);
 			setLoading(false);
 		};
 

@@ -11,6 +11,7 @@ import {
 	TagsIcon,
 	LucideIcon,
 } from 'lucide-react';
+import { getAdminDashboardData } from '@/lib/actions/admin';
 
 interface AdminCardData {
 	title: string;
@@ -24,27 +25,33 @@ export default function AdminDashboard() {
 	const [loading, setLoading] = useState<boolean>(true);
 
 	const [dashboardData, setDashboardData] = useState<AdminDashboardData>({
-		products: 0,
-		revenue: 0,
-		orders: 0,
-		stores: 0,
+		totalProducts: 0,
+		totalRevenue: 0,
+		totalOrders: 0,
+		totalStores: 0,
 		allOrders: [],
 	});
 
 	const dashboardCardsData: AdminCardData[] = [
-		{ title: 'Total Products', value: dashboardData.products, icon: ShoppingBasketIcon },
+		{ title: 'Total Products', value: dashboardData.totalProducts, icon: ShoppingBasketIcon },
 		{
 			title: 'Total Revenue',
-			value: currency + Number(dashboardData.revenue).toLocaleString(),
+			value: currency + Number(dashboardData.totalRevenue).toLocaleString(),
 			icon: CircleDollarSignIcon,
 		},
-		{ title: 'Total Orders', value: dashboardData.orders, icon: TagsIcon },
-		{ title: 'Total Stores', value: dashboardData.stores, icon: StoreIcon },
+		{ title: 'Total Orders', value: dashboardData.totalOrders, icon: TagsIcon },
+		{ title: 'Total Stores', value: dashboardData.totalStores, icon: StoreIcon },
 	];
 
 	useEffect(() => {
 		const fetchDashboardData = async (): Promise<void> => {
-			setDashboardData(dummyAdminDashboardData as unknown as AdminDashboardData);
+			const { success, dashboardData } = await getAdminDashboardData();
+			if (!success || !dashboardData) {
+				setLoading(false);
+				return;
+			}
+
+			setDashboardData(dashboardData);
 			setLoading(false);
 		};
 
