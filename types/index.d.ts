@@ -143,9 +143,12 @@ interface DashboardData {
 }
 
 interface AdminDashboardData {
-	products: number;
-	revenue: number;
-	orders: number;
-	stores: number;
-	allOrders: Order[];
+	totalProducts: number;
+	totalRevenue: number;
+	totalOrders: number;
+	totalStores: number;
+	allOrders: Array<{
+		createdAt: string | Date;
+		total: number;
+	}>;
 }
