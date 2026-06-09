@@ -3,8 +3,12 @@
 import { assets } from '@/constants';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Loading from '@/components/Loading';
+import RedirectCountdown from '@/components/RedirectCountdown';
+import { createStore, getStoreStatus } from '@/lib/actions/store';
+import { useUser } from '@clerk/nextjs';
 
 interface StoreFormState {
 	name: string;
@@ -17,6 +21,9 @@ interface StoreFormState {
 }
 
 const BecomeSeller = () => {
+	const { user } = useUser();
+	const router = useRouter();
+
 	const [alreadySubmitted, setAlreadySubmitted] = useState<boolean>(false);
 	const [status, setStatus] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(true);
@@ -36,25 +43,73 @@ const BecomeSeller = () => {
 		setStoreInfo({ ...storeInfo, [e.target.name]: e.target.value });
 	};
 
-	const fetchSellerStatus = async (): Promise<void> => {
-		try {
-			// Logic to check if the store is already submitted
-		} catch (error) {
-			console.error('Error fetching seller status:', error);
-		} finally {
-			setLoading(false);
-		}
-	};
-
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
+		if (!user) {
+			toast.info('Please login to continue');
+			return;
+		}
 
-		console.log('Submitting Store Payload:', storeInfo);
+		const formData = new FormData();
+		Object.entries(storeInfo).forEach(([Key, value]) => {
+			formData.append(Key, value);
+		});
+
+		const { success, message } = await createStore(formData);
+		if (!success) throw new Error(message);
 	};
 
 	useEffect(() => {
+		const fetchSellerStatus = async (): Promise<void> => {
+			try {
+				const { status } = await getStoreStatus();
+
+				if (status && ['approved', 'rejected', 'pending'].includes(status)) {
+					setStatus(status);
+					setAlreadySubmitted(true);
+
+					switch (status) {
+						case 'approved':
+							setMessage(
+								'Your store has been approved, you can add products from dashboard',
+							);
+							setTimeout(() => router.push('/vendor'), 5000);
+							break;
+						case 'rejected':
+							setMessage(
+								'Your store has been rejected, contact the admin for more details',
+							);
+							break;
+						case 'pending':
+							setMessage(
+								'Your request is pending, please wait for admin to approve your store',
+							);
+							break;
+						default:
+							break;
+					}
+				} else {
+					setAlreadySubmitted(false);
+				}
+			} catch (error) {
+				console.error('Error fetching seller status:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
 		fetchSellerStatus();
-	}, []);
+	}, [user, router]);
+
+	if (!user) {
+		return (
+			<div className="min-h-[80vh] mx-6 flex items-center justify-center text-slate-400">
+				<h1 className="text-2xl-sm:text-4xl font-semibold">
+					Please <span className="text-slate-500">Login</span> to continue
+				</h1>
+			</div>
+		);
+	}
 
 	return !loading ? (
 		<>
@@ -63,7 +118,7 @@ const BecomeSeller = () => {
 					<form
 						onSubmit={(e) => {
 							toast.promise(onSubmitHandler(e), {
-								loading: 'Submitting data...',
+								loading: 'Creating store...',
 								success: 'Store details submitted successfully!',
 								error: 'Failed to submit store details.',
 							});
@@ -184,10 +239,7 @@ const BecomeSeller = () => {
 						{message}
 					</p>
 					{status === 'approved' && (
-						<p className="mt-5 text-slate-400">
-							redirecting to dashboard in{' '}
-							<span className="font-semibold">5 seconds</span>
-						</p>
+						<RedirectCountdown seconds={5} text="redirecting to dashboard in" />
 					)}
 				</div>
 			)}
