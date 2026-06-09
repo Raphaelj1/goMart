@@ -11,6 +11,7 @@ import {
 	TicketPercentIcon,
 } from 'lucide-react';
 import { assets } from '@/constants';
+import { useUser } from '@clerk/nextjs';
 
 interface SidebarLink {
 	name: string;
@@ -20,6 +21,7 @@ interface SidebarLink {
 
 const AdminSidebar = () => {
 	const pathname = usePathname();
+	const { user } = useUser();
 
 	const sidebarLinks: SidebarLink[] = [
 		{ name: 'Dashboard', href: '/admin', icon: HomeIcon },
@@ -34,13 +36,14 @@ const AdminSidebar = () => {
 				<div className="flex justify-center items-center w-14 h-14 rounded-full overflow-hidden">
 					<Image
 						className="w-10 h-10"
-						src={assets.gomart_logo}
+						src={user?.imageUrl || assets.gomart_logo}
+						referrerPolicy="no-referrer"
 						alt=""
 						width={60}
 						height={60}
 					/>
 				</div>
-				<p className="text-slate-700">Hi, Admin</p>
+				<p className="text-slate-700">{user?.fullName}</p>
 			</div>
 
 			<div className="max-sm:mt-6">

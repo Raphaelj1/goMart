@@ -3,22 +3,14 @@ import { redirect } from 'next/navigation';
 import Loading from '../Loading';
 import AdminNavbar from './Navbar';
 import AdminSidebar from './Sidebar';
+import { checkIsAdmin } from '@/lib/actions/auth';
 
 interface AdminLayoutProps {
 	children: React.ReactNode;
 }
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 async function AdminLayoutContent({ children }: AdminLayoutProps) {
-	// auth();
-	// db fetch
-	// isAdmin
-
-	await delay(500);
-
-	// Test
-	const isAdmin = true;
+	const { isAdmin } = await checkIsAdmin();
 
 	if (!isAdmin) redirect('/');
 
